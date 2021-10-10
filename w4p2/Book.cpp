@@ -17,10 +17,10 @@ namespace sdds
 {
 	const int MAX_PAGES = 200; //max number of pages
 
+	//if passed data are valid assign it to an object, otherwise set to safe empty state
 	Book::Book(const char* name, int chapterNum, const Chapter* chapter)
 	{
 		if ((!name || !chapter || name[0] == '\0') || chapterNum <= 0) {
-		//if (isEmpty()) {
 			setEmpty();
 		}
 		else {
@@ -32,34 +32,37 @@ namespace sdds
 			}
 		}
 	}
+	//call function to set to safe emtpy state 
 	Book::Book()
 	{
 		setEmpty();
 	}
+	//free memory here
 	Book::~Book()
 	{
 		delete[] m_name;
 		delete[] m_chapters;
 	}
+	//add chapter to Book if valid  ( num of pages <= 200 and > 0 )
 	Book& Book::addChapter(const char* chapter_name, int noOfPages)
 	{
-		if (noOfPages > 0 && noOfPages <= MAX_PAGES ) { //CHECK HERE
-			Chapter* chapterArray = new Chapter[m_chaptersNumber + 1];
+		if (noOfPages > 0 && noOfPages <= MAX_PAGES ) { 
+			Chapter* chapterArray = new Chapter[m_chaptersNumber + 1]; //DMA array
 			for (int i = 0; i < m_chaptersNumber; i++) {
 				chapterArray[i] = m_chapters[i];
 			}
 			delete[] m_chapters;
 			chapterArray[m_chaptersNumber].setName(chapter_name);
-			chapterArray[m_chaptersNumber].setPagesNum(noOfPages); //DO THIS!!!
+			chapterArray[m_chaptersNumber].setPagesNum(noOfPages); 
 			m_chaptersNumber++;
 			m_chapters = chapterArray;
 		}
 		return *this;
 	}
+	//display all formatted data
 	void Book::display()const
 	{
 		if (isValid()) {
-			//if (!isEmpty()) {
 			cout << "Book Name: " << m_name << endl;
 			cout << "No of Chapters: " << m_chaptersNumber << endl;
 			cout.width(51);
@@ -74,45 +77,39 @@ namespace sdds
 			cout << "Invalid Book object" << endl;
 		}
 	}
-
-		//cout << "BLAH BLAH BLAH" << endl;
+	//check if object is in safe emtpty state
 	bool Book::isEmpty()const
 	{
-		//return (m_name == nullptr);
-		//return (!m_name); //return true if nullptr
 		return (!m_name || !m_chaptersNumber || m_name[0] == '\0' || m_chaptersNumber <= 0); //return true if nullptr
 	}
+	//set to safe empty state
 	void Book::setEmpty()
 	{
 		m_name = nullptr;
 		m_chapters = nullptr;
 		m_chaptersNumber = 0;
 	}
+	//name setter
 	void Book::setName(const char* name)
 	{
 		delete[] m_name;
 		if (!name || name[0] == '\0') {
-			//delete[] m_chapters;
 			setEmpty();
 		}
 		else {
-			//char* newName = new char[strlen(name) + 1];
 			m_name = new char[strlen(name) + 1];
 			strcpy(m_name, name);
 		}
 	}
+	//validate all chapter objects inside this function ( return false if at least one object is invalid )
 	bool Book::isValid()const
 	{
 		int i;
 		bool flag = true;
 		for (i = 0; i < m_chaptersNumber && flag; i++) {
-			if (m_chapters[i].isInvalid() == true) {
-				flag = false;
-			}
+			m_chapters[i].isInvalid() ? flag = false : flag;
 		}
-		if (m_chaptersNumber == 0) {
-			flag = false;
-		}
+		m_chaptersNumber == 0 ? flag = false : flag;
 		return flag;
 	}
 }

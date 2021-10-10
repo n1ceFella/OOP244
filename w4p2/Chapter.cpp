@@ -29,11 +29,12 @@ namespace sdds
 	{
 		setEmpty();
 	}
+	//here we discard Chapter name value
 	Chapter::~Chapter()
 	{
-		//delete[] m_name;
 		m_name[0] = '\0';
 	}
+	// display formatted data
 	void Chapter::display()const
 	{
 		cout.unsetf(ios::right);
@@ -41,24 +42,21 @@ namespace sdds
 		cout.width(50);
 		cout.setf(ios::left);
 		cout << m_name;
-		//cout << " ";
-		//cout.unsetf(ios::left);
-		//cout.setf(ios::right);
 		cout.unsetf(ios::left);
 		cout.fill(' ');
 		cout.width(4);
 		cout.setf(ios::right);
 		cout << m_pagesNumber << endl;
-		//cout << "BLAH BLAH BLAH" << endl;
 	}
+	//set data to safe empty state
 	void Chapter::setEmpty()
 	{
 		m_name[0] = '\0';
 		m_pagesNumber = -1;
 	}
+	//name setter
 	void Chapter::setName(const char* name)
 	{
-		//delete[] m_name;
 		m_name[0] = '\0';
 		if (!name|| name[0] == '\0') {
 			setEmpty();
@@ -67,13 +65,14 @@ namespace sdds
 			strcpy(m_name, name);
 		}
 	}
+	// page number setter
 	void Chapter::setPagesNum(int pages)
 	{
 		m_pagesNumber = pages;
 	}
+	//validate data
 	bool Chapter::isInvalid()
 	{
 		return (m_name[0] == '\0' || m_pagesNumber == -1);
-		//return false;
 	}
 }
