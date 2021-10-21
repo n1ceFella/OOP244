@@ -9,7 +9,6 @@
 #ifndef SDDS_CONTACT_H
 #define SDDS_CONTACT_H
 #include <iostream>
-using namespace std;
 namespace sdds {
 	const int MaxNameLength = 55;
 	class Contact
@@ -32,13 +31,13 @@ namespace sdds {
 		~Contact();
 		bool isValidContact() const;
 		Contact& operator=(const Contact& cnt);
-		ostream& printPhoneNumber(ostream& istr)const;
-		ostream& print(ostream& ostr, bool toFile = true) const;
-		istream& read(istream& istr);
+		std::ostream& printPhoneNumber(std::ostream& istr)const;
+		std::ostream& print(std::ostream& ostr, bool toFile = true) const;
+		std::istream& read(std::istream& istr);
 		operator bool() const;
 	};
-	ostream& operator<<(ostream& ostr, const Contact& cnt);
-	istream& operator>>(istream& istr, Contact& cnt);
+	std::ostream& operator<<(std::ostream& ostr, const Contact& cnt);
+	std::istream& operator>>(std::istream& istr, Contact& cnt);
 }
 #endif // !SDDS_CONTACT_H
 

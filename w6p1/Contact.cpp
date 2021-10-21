@@ -114,12 +114,7 @@ namespace sdds {
     Contact& Contact::operator=(const Contact& cnt)
     {
         if (this != &cnt) {
-            //strcpy(m_name, cnt.m_name);
             set(cnt.m_name, cnt.m_area, cnt.m_exchangeCode, cnt.m_number);
-            //allocateAndCopy(cnt.m_name);
-            //m_area = cnt.m_area;
-            //m_exchangeCode = cnt.m_exchangeCode;
-            //m_number = cnt.m_number;
         }
         return *this;
     }
