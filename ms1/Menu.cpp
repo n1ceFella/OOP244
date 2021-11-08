@@ -1,14 +1,23 @@
-//==============================================
-// Name:           Volodymyr Labliuk
-// Student Number: 147302202
-// Email:          vlabliuk@myseneca.ca
-// Section:        NBB
-// Date:           05.11.2021
-//==============================================
+/* Citation and Sources...
+Final Project Milestone 1
+Module: Menu
+Filename: Menu.cpp
+Version 1.0
+Author	Volodymyr Labliuk
+Revision History
+-----------------------------------------------------------
+Date      Reason
+2021/11/8  Preliminary release
+2021/11/8  Debugged DMA
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 #define  _CRT_SECURE_NO_WARNINGS
 #include <cstring>
 #include "Menu.h"
+#include "Utils.h"
 
 using namespace std;
 namespace sdds
@@ -16,10 +25,7 @@ namespace sdds
 	
 	//MenuItem class
 
-	MenuItem::MenuItem()
-	{
-
-	}
+	MenuItem::MenuItem(){}
 
 	MenuItem::MenuItem(const char* itemName)
 	{
@@ -37,17 +43,20 @@ namespace sdds
 	{
 		delete[] m_itemName;
 	}
+	//check if object is valid
 	MenuItem::operator bool() const
 	{
 		return m_itemName && m_itemName[0] != '\0';
 	}
+	//return item name
 	MenuItem::operator char* () const
 	{
 		return m_itemName;
 	}
+	//print item name
 	std::ostream& MenuItem::write(std::ostream& ostr)const
 	{
-		if (this) { //if not null
+		if (this) {
 			ostr << m_itemName;
 		}
 		return ostr;
@@ -63,7 +72,7 @@ namespace sdds
 	Menu::Menu(const char* menuTitle)
 	{
 		m_itemsNum = 0;
-		title(menuTitle); //check
+		title(menuTitle);
 	}
 	Menu::~Menu()
 	{
@@ -71,72 +80,45 @@ namespace sdds
 		for (i = 0; i < m_itemsNum; i++) {
 			delete m_items[i];
 		}
-		delete[] m_title;
 	}
-	void Menu::title(ostream& ostr) const //check
+	//menu title getter
+	void Menu::title(ostream& ostr) const
 	{
-		if (m_title) {
-			ostr << m_title;
+		if (m_menuItem.m_itemName) {
+			ostr << m_menuItem.m_itemName;
 		}
 	}
+	//menu title setter (DMA)
 	void Menu::title(const char* menuTitle)
 	{
 		if (menuTitle) {
-			delete[] m_title;
-			m_title = new char[strlen(menuTitle) + 1];
-			strcpy(m_title, menuTitle);
+			delete[] m_menuItem.m_itemName;
+			m_menuItem.m_itemName = new char[strlen(menuTitle) + 1];
+			strcpy(m_menuItem.m_itemName, menuTitle);
 		}
 		else {
-			delete[] m_title;
-			m_title = nullptr;
+			delete[] m_menuItem.m_itemName;
+			m_menuItem.m_itemName = nullptr;
 		}
 	}
-	void Menu::displayMenu() const { //check formatting
-		title(cout); //check
+	//display formatted data
+	void Menu::displayMenu() const {
+		title(cout);
 		unsigned int i;
-		if (m_title && m_title[0] != '\0') {
+		if (m_menuItem.m_itemName && m_menuItem.m_itemName[0] != '\0') {
 			cout << ':' << endl;
 		}
+		cout.setf(ios::right);
 		for (i = 0; i < m_itemsNum; i++) {
 			cout.width(2);
-			cout.setf(ios::right);
 			cout << i + 1 << "- " << m_items[i]->m_itemName << endl;
 		}
 		cout.width(2);
-		cout.setf(ios::right);
 		cout << " 0- Exit" << endl;
 		cout.unsetf(ios::right);
 
 	}
-
-	//unsigned int Menu::run() const
-	//{
-	//	unsigned int input = 0;
-	//	displayMenu();
-	//	cout << "> ";
-	//	//cin.clear();
-	//	do { // do validation in Utils
-	//		//cin.setstate(ios::goodbit);
-	//		cin.clear();
-	//		cin.ignore(10000,'\n');
-	//		cin >> input;
-	//		if (input < 0 || input > m_itemsNum) {
-	//			//cin.setstate(ios::failbit);
-	//			cout << "Invalid Selection, try again: " << endl;
-	//		}
-	//		//if (cin.peek() < 0 || cin.peek() > 9) {
-	//		//	cin.setstate(ios::failbit);
-	//		//	cout << "Invalid Selection, try again: " << endl;
-	//		//}
-	//		//if (!cin) {
-	//		//	cout << "Invalid Selection, try again: " << endl;
-	//		//}
-
-	//	} while (!cin);
-	//	cin.clear();
-	//	return input;
-	//}
-
+	//get validated input from keyboard
 	unsigned int Menu::run() const
 	{
 		unsigned int input = 0;
@@ -144,83 +126,54 @@ namespace sdds
 			cin.clear();
 			cin.ignore(sizeof input, '\n');
 		}
-
 		displayMenu();
 		cout << "> ";
-		cin >> input;
-	while (!cin || (input < 0 || input > m_itemsNum)) {
-		cin.clear();
-		cin.ignore(sizeof input, '\n');
-		cout << "Invalid Selection, try again: ";
-		cin >> input; 
-	}
-	return input;
-	}
-
-	//unsigned int Menu::operator~() const
-	//{
-	//	unsigned int input = 0;
-	//	displayMenu();
-	//	//cin.clear();
-	//	do { // do validation in Utils
-	//		cout << "> ";
-	//		cin.setstate(ios::goodbit);
-	//		cin.clear();
-	//		cin >> input;
-	//		//if (cin.peek() < 0 || cin.peek() > 9) {
-	//		//	cin.setstate(ios::failbit);
-	//		//	cout << "Invalid Selection, try again: " << endl;
-	//		//}
-	//		if (!cin) {
-	//			cout << "Invalid Selection, try again: " << endl;
-	//		}
-
-	//	} while (!cin);
-	//	cin.clear();
-	//	return input;
-	//}
-
-	unsigned int Menu::operator~() const {
-		unsigned int input = 0;
-		displayMenu();
-		cout << "> ";
-		cin >> input;
-		while (!cin || (input < 0 || input > m_itemsNum)) {
-			cin.clear();
-			cin.ignore(sizeof input, '\n');
-			cout << "Invalid Selection, try again: ";
-			cin >> input;
-		}
+		input = getInt(input, m_itemsNum); //validate input
 		return input;
 	}
-
+	//get validated input from keyboard
+	unsigned int Menu::operator~() const {
+		unsigned int input = 0;
+		if (!cin) {
+			cin.clear();
+			cin.ignore(sizeof input, '\n');
+		}
+		displayMenu();
+		cout << "> ";
+		input = getInt(input , m_itemsNum);  //validate input
+		return input;
+	}
+	//insert items to menu
 	Menu& Menu::operator<<(const char* menuitemConent)
 	{
 		if (m_itemsNum < MAX_MENU_ITEMS) {
 			MenuItem* menuItem = new MenuItem(menuitemConent);
-			m_items[m_itemsNum] = menuItem; //combine
-			m_itemsNum++;
+			m_items[m_itemsNum++] = menuItem;
 		}
 		return *this;
 	}
+	// return number of items
 	Menu::operator int() const
 	{
 		return m_itemsNum;
 	}
+	// return unsigned number of items
 	Menu::operator unsigned int() const
 	{
 		return m_itemsNum;
 	}
+	// check if menu is empty
 	Menu::operator bool() const
 	{
 		return m_itemsNum > 0;
 	}
-	ostream& operator<<(ostream& ostr, Menu& Ro) //check
+	//print title
+	ostream& operator<<(ostream& ostr, Menu& Ro)
 	{
-		//return m_title;
 		Ro.title(ostr);
 		return ostr;
 	}
+	//return menu item name by index 
 	const char* Menu::operator[] (int index) const
 	{
 		return m_items[index % m_itemsNum]->m_itemName;

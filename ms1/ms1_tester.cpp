@@ -1,11 +1,3 @@
-//==============================================
-// Name:           Volodymyr Labliuk
-// Student Number: 147302202
-// Email:          vlabliuk@myseneca.ca
-// Section:        NBB
-// Date:           05.11.2021
-//==============================================
-
 // Final Project Milestone 1 
 // Date and Menu Modules
 // File	ms1_tester.cpp

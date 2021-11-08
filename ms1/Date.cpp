@@ -1,10 +1,18 @@
-//==============================================
-// Name:           Volodymyr Labliuk
-// Student Number: 147302202
-// Email:          vlabliuk@myseneca.ca
-// Section:        NBB
-// Date:           05.11.2021
-//==============================================
+/* Citation and Sources...
+Final Project Milestone 1
+Module: Date
+Filename: Date.cpp
+Version 1.0
+Author	Volodymyr Labliuk
+Revision History
+-----------------------------------------------------------
+Date      Reason
+2021/11/6  Preliminary release
+2021/11/8  Debugged DMA
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 // Final Project Milestone 1 
 // Date Module
@@ -95,7 +103,7 @@ namespace sdds {
    istream& operator>>(istream& is, Date& RO) {
       return RO.read(is);
    }
-
+   //read date from keyboard
    std::istream& Date::read(std::istream& is)
    {
        errCode(0);
@@ -118,7 +126,7 @@ namespace sdds {
 
        return is;
    }
-
+   //if valid, print data, otherwise print error message
    std::ostream& Date::write(std::ostream& os)const
    {
        if (bad()) {
@@ -139,37 +147,42 @@ namespace sdds {
        }
        return os;
    }
-
+   //check if dates are equal
    bool Date::operator==(const Date& right) const
    {
        return daysSince0001_1_1() == right.daysSince0001_1_1();
    }
+   //check if dates are not equal
    bool Date::operator!=(const Date& right) const
    {
        return daysSince0001_1_1() != right.daysSince0001_1_1();
    }
+   //check if left greater or equal to right
    bool Date::operator>=(const Date& right) const 
    {
        return daysSince0001_1_1() >= right.daysSince0001_1_1();
    }
+   //check if left smaller or equal to right
    bool Date::operator<=(const Date& right) const 
    {
        return daysSince0001_1_1() <= right.daysSince0001_1_1();
    }
+   //check if left smaller hen right
    bool Date::operator<(const Date& right) const 
    {
        return daysSince0001_1_1() < right.daysSince0001_1_1();
    }
+   //check if left greater hen right
    bool Date::operator>(const Date& right) const 
    {
        return daysSince0001_1_1() > right.daysSince0001_1_1();
    }
-
+   //get different between dates in days
    int Date::operator-(const Date& right) const
    {
        return daysSince0001_1_1() - right.daysSince0001_1_1();
    }
-
+   //check if data are valid
    Date::operator bool() const
    {
        return !bad();

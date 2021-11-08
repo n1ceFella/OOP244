@@ -1,10 +1,18 @@
-//==============================================
-// Name:           Volodymyr Labliuk
-// Student Number: 147302202
-// Email:          vlabliuk@myseneca.ca
-// Section:        NBB
-// Date:           05.11.2021
-//==============================================
+/* Citation and Sources...
+Final Project Milestone 1
+Module: Menu
+Filename: Menu.h
+Version 1.0
+Author	Volodymyr Labliuk
+Revision History
+-----------------------------------------------------------
+Date      Reason
+2021/11/8  Preliminary release
+2021/11/8  Debugged DMA
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 #ifndef SDDS_MENU_H
 #define SDDS_MENU_H
@@ -12,7 +20,6 @@
 namespace sdds
 {
 	const unsigned int MAX_MENU_ITEMS = 20;
-	class Menu; //forward declaration
 
 	class MenuItem
 	{
@@ -58,14 +65,11 @@ namespace sdds
 		void title(const char* menuTitle);
 		void displayMenu() const;
 	private:
-		char* m_title{};
 		MenuItem m_menuItem;
 		MenuItem* m_items[MAX_MENU_ITEMS]{};
 		unsigned int m_itemsNum;
 
 	};
 	std::ostream& operator<<(std::ostream& ostr, Menu& Ro);
-	//std::ostream& operator<<(std::ostream& ostr, const Menu& menu);
-	//std::istream& operator>>(std::istream& istr, Menu& menu);
 }
 #endif
