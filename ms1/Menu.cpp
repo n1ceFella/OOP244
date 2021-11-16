@@ -2,9 +2,9 @@
 Final Project Milestone 1
 Module: Menu
 Filename: Menu.cpp
-Version 1.0
+Version 1.1
 Author	Volodymyr Labliuk
-Revision History
+Revision History ignore function improved
 -----------------------------------------------------------
 Date      Reason
 2021/11/8  Preliminary release
@@ -124,7 +124,7 @@ namespace sdds
 		unsigned int input = 0;
 		if (!cin) {
 			cin.clear();
-			cin.ignore(sizeof input, '\n');
+			cin.ignore(1000, '\n');
 		}
 		displayMenu();
 		cout << "> ";
@@ -136,7 +136,7 @@ namespace sdds
 		unsigned int input = 0;
 		if (!cin) {
 			cin.clear();
-			cin.ignore(sizeof input, '\n');
+			cin.ignore(1000, '\n');
 		}
 		displayMenu();
 		cout << "> ";

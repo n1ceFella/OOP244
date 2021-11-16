@@ -1,15 +1,15 @@
 /***********************************************************************
 // OOP244 Utils Module
 // File	Utils.cpp
-// Version 1.0
+// Version 1.1
 // Date	2021.11.8
 // Author Volodymyr Labliuk
-// Description Input validation
+// Description ignore funtion impoved
 //
 // Revision History
 // -----------------------------------------------------------
 // Name                  Date            Reason
-// Volodymyr Labliuk   2021.11.8       Validation
+// Volodymyr Labliuk   2021.11.8     ignore funtion impoved
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 
@@ -23,7 +23,7 @@ namespace sdds {
 		std::cin >> input;
 		while (!std::cin || (input < 0 || input > itemsNum)) {
 			std::cin.clear();
-			std::cin.ignore(sizeof(int), '\n');
+			std::cin.ignore(1000, '\n');
 			std::cout << "Invalid Selection, try again: ";
 			std::cin >> input;
 		}

@@ -2,9 +2,9 @@
 Final Project Milestone 1
 Module: Date
 Filename: Date.cpp
-Version 1.0
+Version 1.1
 Author	Volodymyr Labliuk
-Revision History
+Revision History ignore function improved
 -----------------------------------------------------------
 Date      Reason
 2021/11/6  Preliminary release
@@ -22,7 +22,7 @@ that my professor provided to complete my workshops and assignments.
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// Fardad             2021/10/29		       Preliminary release
+// Fardad             2021/10/29		Preliminary release
 /////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iomanip>
@@ -104,28 +104,47 @@ namespace sdds {
       return RO.read(is);
    }
    //read date from keyboard
+   //std::istream& Date::read(std::istream& is)
+   //{
+   //    errCode(0);
+
+   //    is >> m_year;
+   //    is.ignore();
+   //    is >> m_mon;
+   //    is.ignore();
+   //    is >> m_day;
+   //    is.ignore();
+
+   //    if (is) {
+   //        validate();
+   //    }
+   //    else {
+   //        errCode(1);
+   //        cin.clear();
+   //        cin.ignore(1000, '\n');
+   //    }
+
+   //    return is;
+   //}
+
    std::istream& Date::read(std::istream& is)
    {
-       errCode(0);
+       char random;
 
-       is >> m_year;
-       is.ignore();
-       is >> m_mon;
-       is.ignore();
-       is >> m_day;
-       is.ignore();
+       is >> m_year >> random >> m_mon >> random >> m_day;
 
-       if (is) {
-           validate();
+       if (is.fail()) {
+           m_ErrorCode = CIN_FAILED;
+           is.clear();
+           
        }
        else {
-           errCode(1);
-           cin.clear();
-           cin.ignore(sizeof(int), '\n');
+           validate();
        }
-
+       is.ignore(1000, '\n');
        return is;
    }
+
    //if valid, print data, otherwise print error message
    std::ostream& Date::write(std::ostream& os)const
    {
