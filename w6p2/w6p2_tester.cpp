@@ -60,24 +60,15 @@ void readAndRuleOfThreeTest() {
    hr("Read and Rule of three");
    header();
    for (i = 0; i < noOfRecs; i++) {
-       //cout << bookFile.tellg() << endl;
       B = readBook(bookFile);
-      //cout << bookFile.tellg() << endl;
-      //cout << bookFile.tellg();
       printbookRow(i, B);
-      //cout << bookFile.tellg() << endl;
       if (bookFile) {
          B.write(goodBooks, false) << endl;
       }
       else {
          bookFile.clear();
       }
-      //int x = bookFile.tellg();
       bookFile.ignore(MaxAuthorLen + MaxTitleLen + 7, '\n');
-      //cout << bookFile.tellg() << endl;
-
-      //bookFile.seekg(x + MaxAuthorLen + MaxTitleLen + 7);
-      //cout << bookFile.tellg() << endl;
    }
    goodBooks.close();
    bookFile.close();

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstring>
 #include "Book.h"
+#include "Book.h"
 using namespace std;
 namespace sdds
 {
@@ -20,10 +21,11 @@ namespace sdds
     {
         set(title, authorName, bookcaseNumber, shelfNumber);
     }
-    Book::Book(const Book& cnt)
+    //copy constructor
+    Book::Book(const Book& book)
     {
-        if (cnt) {
-            *this = cnt;
+        if (book) {
+            *this = book;
         }
     }
     Book::~Book()
@@ -34,15 +36,16 @@ namespace sdds
     //return true if not nullptr
     Book::operator bool() const
     {
-        return m_authorName && m_title ? true : false;
+        return m_authorName && m_title;
     }
-    Book& Book::operator=(const Book& cnt)
+    Book& Book::operator=(const Book& book)
     {
-        if (this != &cnt) { //if not self copy
-            set(cnt.m_title, cnt.m_authorName, cnt.m_bookcaseNumber, cnt.m_shelfNumber);
+        if (this != &book) { //if not self copy
+            set(book.m_title, book.m_authorName, book.m_bookcaseNumber, book.m_shelfNumber);
         }
         return *this;
     }
+    //Book object setter
     void Book::set(const char* title, const char* authorName, int bookcaseNumber, int shelfNumber)
     {
         if ((title && title[0] != '\0') && 
@@ -65,26 +68,21 @@ namespace sdds
         m_title = nullptr;
         m_authorName = nullptr;
     }
-    //DMA for name
+    //DMA for author name
     void Book::allocateAndCopyAuthorName(const char* name)
     {
         delete[] m_authorName;
         m_authorName = new char[strlen(name) + 1];
         strcpy(m_authorName, name);
     }
+    //DMA for title
     void Book::allocateAndCopyTitle(const char* name)
     {
         delete[] m_title;
         m_title = new char[strlen(name) + 1];
         strcpy(m_title, name);
     }
-    bool Book::isValid(char* title, char* authorName, int bookcaseNum, int shelfNum)const
-    {
-        return (title && title[0] != '\n') &&
-            (authorName && authorName[0] != '\n') &&
-            (bookcaseNum > 0 && bookcaseNum <= NoOfBookCases) &&
-            (shelfNum > 0 && shelfNum <= NoOfShelves);
-    }
+    //exctract redundant character
     void Book::extractChar(std::istream& istr, char ch) const
     {
         if (istr.peek() == ch) { // checking if the next character in keyboard same as ch
@@ -94,71 +92,15 @@ namespace sdds
             istr.setstate(ios::failbit); //set istr to fail state
         }
     }
-    istream& Book::read(std::istream& istr)
-    {
-        char title[MaxTitleLen + 1]{};
-        char authorName[MaxAuthorLen + 1]{};
-        int shelfNumber;
-        int bookcaseNumber;
-
-        //cout << istr.tellg() << endl;
-        //istr.get(title, MaxTitleLen, ',');
-       // while (istr.getline(title, MaxTitleLen, ',')) {
-         //   istr.getline(authorName, MaxAuthorLen, ',');
-        //}
-        //istr.ignore();
-        //cout << istr.tellg() << endl;
-        istr.getline(title, MaxTitleLen + 1, ',');
-        //istr.clear();
-        //cout << istr.tellg() << endl;
-        //extractChar(istr, ',');
-        //istr.seekg(strlen(title) + 1);
-        //istr.get(authorName, MaxAuthorLen, ',');
-        istr.getline(authorName, MaxAuthorLen + 1, ',');
-        //str.clear();
-        //cout << istr.tellg() << endl;
-
-        //extractChar(istr, ',');
-        istr >> shelfNumber;
-        extractChar(istr, '/');
-        istr >> bookcaseNumber;
-        extractChar(istr, '\n');
-        //if(!isValid(title, authorName, bookcaseNumber, shelfNumber))
-        ////if(!(bookcaseNumber > 0 && bookcaseNumber <= NoOfBookCases &&
-        //    //shelfNumber > 0 && shelfNumber <= NoOfShelves))
-        //{ 
-        //    istr.clear();
-        //    istr.ignore(MaxAuthorLen + MaxTitleLen + 7, '\n');
-        //    istr.setstate(ios::failbit);
-        //    return istr;
-        //}
-        if (!isValid(title, authorName, bookcaseNumber, shelfNumber)) {
-            istr.setstate(ios::failbit);
-            set(title, authorName, bookcaseNumber, shelfNumber);
-        }
-        else {
-            if (istr) {
-                set(title, authorName, bookcaseNumber, shelfNumber);
-            }
-            else {
-                //    istr.setstate(ios::goodbit);
-                istr.clear();
-                istr.ignore(MaxAuthorLen + MaxTitleLen + 7, '\n');
-                istr.setstate(ios::failbit);
-            }
-        }
-        //int x = istr.tellg();
-        //istr.seekg(x - strlen(title) - strlen(authorName) - 7);
-        return istr;
-    }
+    //diplay formatted data
     ostream& Book::write(ostream& ostr, bool onScreen)const
     {
         if (onScreen) {
             if (*this) {
                 ostr.setf(ios::left);
-                ostr.width(39);
+                ostr.width(40);
                 ostr << m_title;
-                ostr << " | ";
+                ostr << "| ";
                 ostr.width(24);
                 ostr << m_authorName;
                 ostr << " | ";
@@ -191,15 +133,38 @@ namespace sdds
         }
         return ostr;
     }
-    ostream& operator<<(ostream& ostr, const Book& cnt)
+    //overloaded insertion operator to call function to display data
+    ostream& operator<<(ostream& ostr, const Book& book)
     {
-        //if (cnt) {
-            cnt.write(ostr);
-        //}
+        book.write(ostr);
         return ostr;
     }
-    istream& operator>>(istream& istr, Book& cnt)
+    //overloaded extraction operator to read data from file
+    istream& operator>>(istream& istr, Book& book)
     {
-        return cnt.read(istr);
+        return book.read(istr);
+    }
+    //read data from file line by line
+    istream& Book::read(std::istream& istr)
+    {
+        char title[MaxTitleLen + 1];
+        char authorName[MaxAuthorLen + 1];
+        int shelfNumber = 0;
+        int bookcaseNumber = 0;
+        istr.getline(title, MaxTitleLen + 1, ',');
+        istr.getline(authorName, MaxAuthorLen + 1, ',');
+        istr >> shelfNumber;
+        if (shelfNumber < 1 || shelfNumber > NoOfShelves) {
+            istr.setstate(ios::failbit);
+        }
+        extractChar(istr, '/');
+        istr >> bookcaseNumber;
+        if (bookcaseNumber < 1 || bookcaseNumber > NoOfBookCases) {
+            istr.setstate(ios::failbit);
+        }
+        if (istr) {
+            set(title, authorName, bookcaseNumber, shelfNumber);
+        }
+        return istr;
     }
 }
