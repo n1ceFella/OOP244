@@ -104,44 +104,25 @@ namespace sdds {
       return RO.read(is);
    }
    //read date from keyboard
-   //std::istream& Date::read(std::istream& is)
-   //{
-   //    errCode(0);
-
-   //    is >> m_year;
-   //    is.ignore();
-   //    is >> m_mon;
-   //    is.ignore();
-   //    is >> m_day;
-   //    is.ignore();
-
-   //    if (is) {
-   //        validate();
-   //    }
-   //    else {
-   //        errCode(1);
-   //        cin.clear();
-   //        cin.ignore(1000, '\n');
-   //    }
-
-   //    return is;
-   //}
-
    std::istream& Date::read(std::istream& is)
    {
-       char random;
+       errCode(0);
 
-       is >> m_year >> random >> m_mon >> random >> m_day;
+       is >> m_year;
+       is.ignore();
+       is >> m_mon;
+       is.ignore();
+       is >> m_day;
+       is.ignore();
 
-       if (is.fail()) {
-           m_ErrorCode = CIN_FAILED;
-           is.clear();
-           
-       }
-       else {
+       if (is) {
            validate();
        }
-       is.ignore(1000, '\n');
+       else {
+           errCode(1);
+           cin.clear();
+           cin.ignore(1000, '\n');
+       }
        return is;
    }
 
