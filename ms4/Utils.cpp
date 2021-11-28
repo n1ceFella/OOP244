@@ -53,7 +53,7 @@ namespace sdds {
 		if (size == 0) {
 			getline(istr, toRead, delimeter);
 			if (istr) {
-				delete[] str;
+				//delete[] str;
 				//char* str = nullptr;
 				str = new char[strLen(toRead.c_str()) + 1];
 				strCpy(str, toRead.c_str());

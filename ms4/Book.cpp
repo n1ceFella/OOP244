@@ -37,6 +37,7 @@ namespace sdds
             delete[] m_authorName;
             m_authorName = new char[strlen(Ro.m_authorName) + 1];
             strcpy(m_authorName, Ro.m_authorName);
+           // delete[] Ro.m_authorName;
         }
         return *this;
     }

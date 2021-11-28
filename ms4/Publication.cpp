@@ -130,7 +130,10 @@ namespace sdds
 			strcpy(m_shelfID, shelfID);
 			set(membership);
 			m_date = date;
-			m_libRef = libRef;
+			setRef(libRef);
+		}
+		else {
+			delete[] title;
 		}
 		return is;
 	}
@@ -158,6 +161,7 @@ namespace sdds
 			delete[] m_title;
 			m_title = new char[strlen(Ro.m_title) + 1];
 			strcpy(m_title, Ro.m_title);
+			//delete[] Ro.m_title;
 		}
 		return *this;
 	}
