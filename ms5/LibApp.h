@@ -39,7 +39,7 @@ namespace sdds
         bool confirm(const char* message);
         void load(const char* fileName);  // prints: "Loading Data"<NEWLINE>
         void save(const char* fileName);  // prints: "Saving Data"<NEWLINE>
-        void search(bool all = false, bool checkOut = false, bool onLoan = false);  // prints: "Searching for publication"<NEWLINE>
+        int search(bool all = false, bool checkOut = false, bool onLoan = false);  // prints: "Searching for publication"<NEWLINE>
         void newPublication(); //print and confirm new publication
         void removePublication(); //print and confirm remove publication
         void checkOutPub(); //print and confirm check out publication

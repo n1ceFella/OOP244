@@ -42,22 +42,23 @@ namespace sdds
 		}
 		return ostr;
 	}
-	std::ostream& operator<<(std::ostream& ostr, Streamable* Ro)
-	{
-		//print only is object is not null
-		if (Ro) {
-			Ro->write(ostr);
-		}
-		return ostr;
-	}
 	istream& operator>>(std::istream& istr, Streamable& Ro)
 	{
 		Ro.read(istr);
 		return istr;
 	}
-	istream& operator>>(std::istream& istr, Streamable* Ro)
-	{
-		Ro->read(istr);
-		return istr;
-	}
+
+	//std::ostream& operator<<(std::ostream& ostr, Streamable* Ro)
+	//{
+	//	//print only is object is not null
+	//	if (Ro) {
+	//		Ro->write(ostr);
+	//	}
+	//	return ostr;
+	//}
+	//istream& operator>>(std::istream& istr, Streamable* Ro)
+	//{
+	//	Ro->read(istr);
+	//	return istr;
+	//}
 }

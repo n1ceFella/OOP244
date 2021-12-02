@@ -39,7 +39,7 @@ namespace sdds
 	std::ostream& operator<<(std::ostream& ostr, Streamable& Ro);
 	std::istream& operator>>(std::istream& istr, Streamable& Ro);
 
-	std::istream& operator>>(std::istream& istr, Streamable* Ro);
-	std::ostream& operator<<(std::ostream& ostr, Streamable* Ro);
+	//std::istream& operator>>(std::istream& istr, Streamable* Ro);
+	//std::ostream& operator<<(std::ostream& ostr, Streamable* Ro);
 }
 #endif
