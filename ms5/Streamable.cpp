@@ -34,7 +34,7 @@ namespace sdds
 	{
 
 	}
-	ostream& operator<<(std::ostream& ostr, Streamable& Ro)
+	ostream& operator<<(std::ostream& ostr,const Streamable& Ro)
 	{
 		//print only is object is not null
 		if (Ro) {

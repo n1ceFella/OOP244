@@ -29,13 +29,15 @@ namespace sdds {
 	//validate input
 	int getInt(int input, int itemsNum)
 	{
-		std::cin >> input;
+		std::cin >> input;  // 2<ENTER>
 		while (!std::cin || (input < 0 || input > itemsNum)) {
 			std::cin.clear();
 			std::cin.ignore(1000, '\n');
 			std::cout << "Invalid Selection, try again: ";
 			std::cin >> input;
 		}
+      // <ENTER> is here
+		std::cin.ignore(1000, '\n');
 		return input;
 	}
 	int strLen(const char* str)

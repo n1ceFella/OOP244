@@ -18,7 +18,7 @@ that my professor provided to complete my workshops and assignments.
 #include <cstring>
 #include "LibApp.h"
 #include "Menu.h"
-#include "PublicationSelector.h";
+#include "PublicationSelector.h"
 #include "Book.h"
 #include <string>
 
@@ -160,199 +160,201 @@ namespace sdds
 	//search for publications message
 	int LibApp::search(bool all, bool checkOut, bool onLoan)
 	{
-
-		if (!cin) {
-			cin.clear();
-			cin.ignore(1000, '\n');
-		}
-		int selection = 0;
-		//NOT READS!!!
-		char garbage[256]{};
-		cin.getline(garbage, 256, '\n');
-
-		cout << "Publication Title: ";
-		char title[256]{};
-		cin.getline(title, 256, '\n');
 		PublicationSelector pb("Select one of the following found matches:");
+		int selection = 0;
+		char title[256]{};
+
+		//if (!cin) {
+		//	cin.clear();
+		//	cin.ignore(1000, '\n');
+		//}
+	   //NOT READS!!!
+		//char garbage[256]{};
+		//cin.getline(garbage, 256, '\n');
+
+
 		//m_pubTypeMenu.title(cout); // display menu title
 		selection = m_pubTypeMenu.run();
+		if (selection) {
+			cout << "Publication Title: ";
 
+			cin.getline(title, 256, '\n');
+			switch (selection) { //create function
+			case 1:
+				if (all) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
+							pb << m_pubPtrs[i];
+						}
+					}
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+									//cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
 
-		switch (selection) { //create function
-		case 1:
-			if (all) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
-						pb << m_pubPtrs[i];
+							//cout << "Selected Library Reference Number: " << ref << endl;
+							//prnPub(p, 100, ref);
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
+					}
+					else {
+						cout << "No matches found!" << endl;
 					}
 				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-								//cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
+				else if (checkOut) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
+							if (!(m_pubPtrs[i]->onLoan())) { //if avalable in lib
+								pb << m_pubPtrs[i];
+							}
+						}
+					}
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+								//	cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
 
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
 						//cout << "Selected Library Reference Number: " << ref << endl;
 						//prnPub(p, 100, ref);
 					}
 					else {
-						cout << "Aborted!" << endl;
+						cout << "No matches found!" << endl;
 					}
 				}
-				else {
-					cout << "No matches found!" << endl;
+				else if (onLoan) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
+							if (m_pubPtrs[i]->onLoan()) { //if is not avalable in lib
+								pb << m_pubPtrs[i];
+							}
+						}
+					}
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+								//	cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
+
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
+					}
+					else {
+						cout << "No matches found!" << endl;
+					}
 				}
-			}
-			else if (checkOut) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
-						if (!(m_pubPtrs[i]->onLoan())) { //if avalable in lib
+				break;
+			case 2:
+				if (all) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
 							pb << m_pubPtrs[i];
 						}
 					}
-				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-							//	cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+									//cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
 
+							//cout << "Selected Library Reference Number: " << ref << endl;
+							//prnPub(p, 100, ref);
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
 					}
 					else {
-						cout << "Aborted!" << endl;
+						cout << "No matches found!" << endl;
+					}
+				}
+				else if (checkOut) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
+							if (!m_pubPtrs[i]->onLoan()) { //if avalable in lib
+								pb << m_pubPtrs[i];
+							}
+						}
+					}
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+								//	cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
+
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
+					}
+					else {
+						cout << "No matches found!" << endl;
+					}
+				}
+				else if (onLoan) {
+					for (int i = 0; i < m_numOfPub; i++) {
+						if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
+							if (m_pubPtrs[i]->onLoan()) { //if is not avalable in lib
+								pb << m_pubPtrs[i];
+							}
+						}
+					}
+					if (pb) {
+						pb.sort(); // sort them based on date and title
+						int ref = pb.run(); // display the publications and select one
+						if (ref) {
+							//for (int i = 0; i < m_numOfPub; i++) {
+								//if (m_pubPtrs[i]->getRef() == ref) {
+								//	cout << m_pubPtrs[i] << endl;
+								//}
+							return ref;
+
+						}
+						else {
+							cout << "Aborted!" << endl;
+						}
+					}
+					else {
+						cout << "No matches found!" << endl;
 					}
 					//cout << "Selected Library Reference Number: " << ref << endl;
 					//prnPub(p, 100, ref);
 				}
-				else {
-					cout << "No matches found!" << endl;
-				}
-			}
-			else if (onLoan) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'B' && strstr(*m_pubPtrs[i], title)) {
-						if (m_pubPtrs[i]->onLoan()) { //if is not avalable in lib
-							pb << m_pubPtrs[i];
-						}
-					}
-				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-							//	cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
 
-					}
-					else {
-						cout << "Aborted!" << endl;
-					}
-				}
-				else {
-					cout << "No matches found!" << endl;
-				}
+				break;
+			case 0:
+				cout << "Aborted!" << endl;
+				break;
 			}
-			break;
-		case 2:
-			if (all) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
-						pb << m_pubPtrs[i];
-					}
-				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-								//cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
-
-						//cout << "Selected Library Reference Number: " << ref << endl;
-						//prnPub(p, 100, ref);
-					}
-					else {
-						cout << "Aborted!" << endl;
-					}
-				}
-				else {
-					cout << "No matches found!" << endl;
-				}
-			}
-			else if (checkOut) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
-						if (!m_pubPtrs[i]->onLoan()) { //if avalable in lib
-							pb << m_pubPtrs[i];
-						}
-					}
-				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-							//	cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
-
-					}
-					else {
-						cout << "Aborted!" << endl;
-					}
-				}
-				else {
-					cout << "No matches found!" << endl;
-				}
-			}
-			else if (onLoan) {
-				for (int i = 0; i < m_numOfPub; i++) {
-					if (m_pubPtrs[i]->type() == 'P' && strstr(*m_pubPtrs[i], title)) {
-						if (m_pubPtrs[i]->onLoan()) { //if is not avalable in lib
-							pb << m_pubPtrs[i];
-						}
-					}
-				}
-				if (pb) {
-					pb.sort(); // sort them based on date and title
-					int ref = pb.run(); // display the publications and select one
-					if (ref) {
-						//for (int i = 0; i < m_numOfPub; i++) {
-							//if (m_pubPtrs[i]->getRef() == ref) {
-							//	cout << m_pubPtrs[i] << endl;
-							//}
-						return ref;
-
-					}
-					else {
-						cout << "Aborted!" << endl;
-					}
-				}
-				else {
-					cout << "No matches found!" << endl;
-				}
-				//cout << "Selected Library Reference Number: " << ref << endl;
-				//prnPub(p, 100, ref);
-			}
-
-			break;
-		case 0:
-			cout << "Aborted!" << endl;
-			break;
 		}
 		return 0;
 	}
@@ -472,11 +474,13 @@ namespace sdds
 	}
 	Publication* LibApp::getPub(int libRef)
 	{
-		for (int i = 0; i < m_numOfPub; i++) {
+		Publication* ret{};
+		for (int i = 0;!ret &&  i < m_numOfPub; i++) {  // bad boy you are!
 			if (m_pubPtrs[i]->getRef() == libRef) {
-				return m_pubPtrs[i];
+				ret = m_pubPtrs[i];
 			}
 		}
+		return ret;
 	}
 
 }
