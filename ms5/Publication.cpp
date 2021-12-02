@@ -193,7 +193,7 @@ namespace sdds
 	}
 	char Publication::type()const 
 	{
-		return 'B';
+		return 'P';
 	}
 	//check if publication is on load
 	bool Publication::onLoan()const

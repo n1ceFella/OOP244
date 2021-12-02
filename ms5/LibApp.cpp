@@ -88,21 +88,23 @@ namespace sdds
 			}
 			else {
 				if (confirm("Add this publication to library?")) {
+					if (*pub) {
+						//m_pubPtrs[m_numOfPub]->setRef(++m_lastRefNum);
+						pub->setRef(++m_lastRefNum);
+						m_pubPtrs[m_numOfPub] = pub;
+						m_numOfPub++;
+						m_changed = true;
+						cout << "Publication added" << endl;
+					}
+					else {
+						delete[] pub;
+						cout << "Failed to add publication!" << endl;
+					}
+				}
+				else {
 					cout << "Aborted!" << endl;
 				}
 			}
-			if (pub) {
-				m_pubPtrs[m_numOfPub]->setRef(++m_lastRefNum);
-				m_pubPtrs[m_numOfPub] = pub;
-				m_numOfPub++;
-				m_changed = true;
-				cout << "Publication added" << endl;
-			}
-			else {
-				delete[] pub;
-				cout << "Failed to add publication!" << endl;
-			}
-
 		}
 	}
 	//remove publication message  +  confirm function call
