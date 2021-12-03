@@ -105,7 +105,7 @@ namespace sdds
 						cout << "Publication added" << endl;
 					}
 					else {
-						delete[] pub;
+						delete pub;
 						cout << "Failed to add publication!" << endl;
 					}
 				}
