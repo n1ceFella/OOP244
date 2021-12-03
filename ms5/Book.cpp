@@ -75,7 +75,7 @@ namespace sdds
         resetDate();
     }
     //diplay formatted data
-    ostream& Book::write(ostream& ostr, bool onScreen)const
+    ostream& Book::write(ostream& ostr)const
     {
         Publication::write(ostr);
         if (conIO(ostr)) {
@@ -113,7 +113,9 @@ namespace sdds
         //if file stream
         else {
             istr.ignore();
-            istr.get(authorName, 256 + 1, '\n');
+            istr.get(authorName, 256 + 1, '\n'); //maybe getline
+            //istr.clear(); //TEMP
+            //istr.ignore(1000, '\n'); // TEMP
         }
         if (istr) {
             delete[] m_authorName;
@@ -122,18 +124,18 @@ namespace sdds
         }
         return istr;
     }
-    //overloaded insertion operator to call function to display data
-    ostream& operator<<(ostream& ostr, const Book& Ro)
-    {
-        if (Ro) {
-            Ro.write(ostr);
-        }
-        return ostr;
-    }
-    //overloaded extraction operator to read data from file
-    istream& operator>>(istream& istr, Book& book)
-    {
-        book.read(istr);
-        return istr; 
-    }
+    ////overloaded insertion operator to call function to display data
+    //ostream& operator<<(ostream& ostr, const Book& Ro)
+    //{
+    //    if (Ro) {
+    //        Ro.write(ostr);
+    //    }
+    //    return ostr;
+    //}
+    ////overloaded extraction operator to read data from file
+    //istream& operator>>(istream& istr, Book& book)
+    //{
+    //    book.read(istr);
+    //    return istr; 
+    //}
 }

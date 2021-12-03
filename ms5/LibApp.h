@@ -29,7 +29,7 @@ namespace sdds
         Publication* m_pubPtrs[SDDS_LIBRARY_CAPACITY]{};
         int m_numOfPub; //ptrs
         int m_lastRefNum;
-        Menu m_pubTypeMenu = "Choose the type of publication:";
+        Menu m_pubTypeMenu;
 
         bool m_changed;
         Menu m_mainMenu;
@@ -39,7 +39,7 @@ namespace sdds
         bool confirm(const char* message);
         void load(const char* fileName);  // prints: "Loading Data"<NEWLINE>
         void save(const char* fileName);  // prints: "Saving Data"<NEWLINE>
-        int search(bool all = false, bool checkOut = false, bool onLoan = false);  // prints: "Searching for publication"<NEWLINE>
+        int search(bool checkOut = false, bool onLoan = false);  // prints: "Searching for publication"<NEWLINE>
         void newPublication(); //print and confirm new publication
         void removePublication(); //print and confirm remove publication
         void checkOutPub(); //print and confirm check out publication
@@ -52,6 +52,7 @@ namespace sdds
     public:
         //LibApp();
         LibApp(const char* name);
+        ~LibApp();
         void run();
     };
 }

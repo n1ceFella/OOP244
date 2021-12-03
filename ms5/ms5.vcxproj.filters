@@ -39,7 +39,7 @@
     <ClCompile Include="PublicationSelector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LibAppMain_prof.cpp">
+    <ClCompile Include="LibAppMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,20 +73,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="printout.dat">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="ClassDiagram.cd">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="notes.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Books.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="LibRecs.txt">
       <Filter>Resource Files</Filter>
     </Text>
