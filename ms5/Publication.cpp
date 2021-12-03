@@ -109,7 +109,7 @@ namespace sdds
 			is >> libRef;
 			is.ignore();
 			is.getline(shelfID, SDDS_SHELF_ID_LEN + 1, '	');
-			if (strlen(shelfID) < 4) {
+			if (strlen(shelfID) != 4) {
 				is.setstate(ios::failbit);
 			}
 			//read title dynamically

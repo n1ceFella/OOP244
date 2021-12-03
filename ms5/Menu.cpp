@@ -30,13 +30,8 @@ namespace sdds
 	MenuItem::MenuItem(const char* itemName)
 	{
 		if (itemName) {
-			delete[] m_itemName;
 			m_itemName = new char[strlen(itemName) + 1];
 			strcpy(m_itemName, itemName);
-		}
-		else {
-			delete[] m_itemName;
-			m_itemName = nullptr;
 		}
 	}
 	MenuItem::~MenuItem()

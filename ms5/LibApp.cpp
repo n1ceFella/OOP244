@@ -27,14 +27,14 @@ using namespace std;
 namespace sdds
 {
 
-	LibApp::LibApp(const char* name)
+	LibApp::LibApp(const char* name):
+		m_pubTypeMenu("Choose the type of publication:"), 
+		m_mainMenu("Seneca Library Application"),
+		m_exitMenu("Changes have been made to the data, what would you like to do?")
 	{
 		strcpy(m_pubFileName, name);
 		m_changed = false;
-		m_pubTypeMenu.title("Choose the type of publication:");
-		m_mainMenu.title("Seneca Library Application");
 		m_mainMenu << "Add New Publication" << "Remove Publication" << "Checkout publication from library" << "Return publication to library";
-		m_exitMenu.title("Changes have been made to the data, what would you like to do?");
 		m_exitMenu << "Save changes and exit" << "Cancel and go back to the main menu";
 		m_pubTypeMenu << "Book" << "Publication";
 		m_lastRefNum = 0;
@@ -273,7 +273,7 @@ namespace sdds
 				m_pubPtrs[i] = new Publication;
 			else if (type == 'B')
 				m_pubPtrs[i] = new Book;
-			if (type) {
+			if (type == 'P' || type == 'B') {
 				filein >> *m_pubPtrs[i];  // *m_pubPtrs[i]
 				m_lastRefNum = m_pubPtrs[i]->getRef();
 				m_numOfPub++;

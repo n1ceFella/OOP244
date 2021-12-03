@@ -24,16 +24,14 @@ namespace sdds
     class LibApp
     {
     private:
-
-        char m_pubFileName[256]{};
-        Publication* m_pubPtrs[SDDS_LIBRARY_CAPACITY]{};
-        int m_numOfPub; //ptrs
-        int m_lastRefNum;
-        Menu m_pubTypeMenu;
-
-        bool m_changed;
-        Menu m_mainMenu;
-        Menu m_exitMenu;
+       Menu m_pubTypeMenu;
+       Menu m_mainMenu;
+       Menu m_exitMenu;
+       int m_numOfPub{}; //ptrs
+       int m_lastRefNum{};
+       bool m_changed{};
+       Publication* m_pubPtrs[SDDS_LIBRARY_CAPACITY]{};
+       char m_pubFileName[256]{};
 
 
         bool confirm(const char* message);
