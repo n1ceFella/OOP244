@@ -34,7 +34,7 @@ namespace sdds
 		virtual std::istream& read(std::istream& istr) = 0;
 		virtual bool conIO(std::ios& ios) const = 0;
 		virtual operator bool() const = 0;
-		virtual ~Streamable() = 0;
+		virtual ~Streamable();
 	};
 	std::ostream& operator<<(std::ostream& ostr,const Streamable& Ro);
 	std::istream& operator>>(std::istream& istr, Streamable& Ro);
