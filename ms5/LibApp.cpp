@@ -45,7 +45,7 @@ namespace sdds
 	LibApp::~LibApp()
 	{
 		for (int i = 0; i < m_numOfPub; i++) {
-			delete[] m_pubPtrs[i];
+			delete m_pubPtrs[i];
 		}
 
 	}
