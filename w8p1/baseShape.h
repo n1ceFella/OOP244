@@ -5,7 +5,7 @@ namespace sdds
 	class baseShape
 	{
 	public:
-		virtual void drawShape(std::ostream& ostr) = 0;
+		virtual void drawShape(std::ostream& ostr) const = 0;
 		virtual void readShape(std::istream& istr) = 0;
 		virtual ~baseShape();
 	private:

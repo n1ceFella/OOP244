@@ -23,7 +23,7 @@ namespace sdds
 	{
 		m_width = width;
 		m_spaces = spaces;
-		if (m_width == m_spaces + strlen(label) + 2) {
+		if (m_width < m_spaces + (int)strlen(label) + 2) {
 			m_width = 0;
 		}
 	}
@@ -35,33 +35,30 @@ namespace sdds
 		istr >> m_spaces;
 		istr.ignore(1000, '\n');
 	}
-	void rectangleLabel::drawShape(ostream& ostr)
+	void rectangleLabel::drawShape(ostream& ostr) const
 	{
 		if (m_width != 0) {
 			//first line
 			ostr << "+";
-			//do width and fill
 			for (int i = 0; i < m_width - 2; i++) {
 				ostr << "-";
 			}
 			ostr << "+" << endl;
 			//second line
 			ostr << "|";
-			//do width and fill
-			for (int i = 0; i < m_spaces; i++) {
-				ostr << " ";
-			}
 			ostr.setf(ios::left);
-			ostr.width(m_width - m_spaces);
+			ostr.width(m_spaces);
+			ostr.fill(' ');
+			ostr << " ";
+			ostr.width(m_width - 2 - m_spaces);
 			ostr << label();
 			ostr << "|" << endl;
 			//last line
 			ostr << "+";
-			//do width and fill
 			for (int i = 0; i < m_width - 2; i++) {
 				ostr << "-";
 			}
-			ostr << "+" << endl;
+			ostr << "+";
 		}
 	}
 }

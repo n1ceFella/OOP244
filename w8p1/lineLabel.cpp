@@ -24,16 +24,14 @@ namespace sdds
 	void lineLabel::readShape(istream& istr)
 	{
 		labelShape::readShape(istr);
-		int length;
-		istr >> length;
-		m_length = length; // ?????????????
+		istr >> m_length;
+		istr.clear();
 		istr.ignore(1000, '\n');
 	}
-	void lineLabel::drawShape(ostream& ostr)
+	void lineLabel::drawShape(ostream& ostr) const
 	{
 		if (m_length > 0 && label()) {
 			ostr << label() << endl;
-			//width and fill
 			for (int i = 0; i < m_length; i++) {
 				cout << "=";
 			}

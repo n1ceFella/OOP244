@@ -34,11 +34,7 @@ namespace sdds
 	void labelShape::readShape(istream& istr)
 	{
 		char label[100];
-		//char * label{}
-		istr >> label;
-
 		istr.getline(label, 100, ',');
-		// ignore
 		delete[] m_label;
 		m_label = new char[strlen(label) + 1];
 		strcpy(m_label, label);
