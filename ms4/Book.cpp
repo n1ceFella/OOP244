@@ -3,8 +3,24 @@
 // Student Number: 147302202
 // Email:          vlabliuk@myseneca.ca
 // Section:        NBB
-// Date:           23.10.2021
+// Date:           27.11.2021
 //==============================================
+
+/* Citation and Sources...
+Final Project Milestone 4
+Module: Book
+Filename: Book.cpp
+Version 1.0
+Author	Volodymyr Labliuk
+Revision
+-----------------------------------------------------------
+Date      Reason
+2021/11/27  Preliminary release
+2021/11/27  Debugged DMA
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 #define  _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -32,12 +48,11 @@ namespace sdds
     }
     Book& Book::operator=(const Book& Ro)
     {
-        if ((this != &Ro) && Ro) { //if not self copy
+        if ((this != &Ro) && Ro) { //if not self copy and if right operand is not null
             Publication::operator=(Ro);
             delete[] m_authorName;
             m_authorName = new char[strlen(Ro.m_authorName) + 1];
             strcpy(m_authorName, Ro.m_authorName);
-           // delete[] Ro.m_authorName;
         }
         return *this;
     }
@@ -58,16 +73,6 @@ namespace sdds
     {
         Publication::set(id);
         resetDate();
-    }
-    //exctract redundant character
-    void Book::extractChar(std::istream& istr, char ch) const
-    {
-        if (istr.peek() == ch) { // checking if the next character in keyboard same as ch
-            istr.ignore();
-        }
-        else {
-            istr.setstate(ios::failbit); //set istr to fail state
-        }
     }
     //diplay formatted data
     ostream& Book::write(ostream& ostr, bool onScreen)const
@@ -97,15 +102,17 @@ namespace sdds
     istream& Book::read(std::istream& istr)
     {
         char authorName[256 + 1];
+        //read publication members
         Publication::read(istr);
+        //if console stream
         if (conIO(istr)) {
             istr.ignore();
             cout << "Author: ";
             istr.getline(authorName, 256 + 1, '\n');
         }
+        //if file stream
         else {
             istr.ignore();
-            //istr.getline(authorName, 256 + 1, '\n');
             istr.get(authorName, 256 + 1, '\n');
         }
         if (istr) {

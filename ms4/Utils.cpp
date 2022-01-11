@@ -1,15 +1,23 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           27.11.2021
+//==============================================
+
 /***********************************************************************
 // OOP244 Utils Module
 // File	Utils.cpp
-// Version 1.1
-// Date	2021.11.8
+// Version 1.2
+// Date	2021.11.27
 // Author Volodymyr Labliuk
-// Description ignore funtion impoved
+// Description ignore funtion impoved and added supportive functions
 //
 // Revision History
 // -----------------------------------------------------------
 // Name                  Date            Reason
-// Volodymyr Labliuk   2021.11.8     ignore funtion impoved
+// Volodymyr Labliuk   2021.11.27     added supportive functions
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 
@@ -30,10 +38,6 @@ namespace sdds {
 		}
 		return input;
 	}
-	bool conIO(std::ios& io)
-	{
-		return (&io == &std::cin || &io == &std::cout);
-	}
 	int strLen(const char* str)
 	{
 		int len = -1;
@@ -53,8 +57,6 @@ namespace sdds {
 		if (size == 0) {
 			getline(istr, toRead, delimeter);
 			if (istr) {
-				//delete[] str;
-				//char* str = nullptr;
 				str = new char[strLen(toRead.c_str()) + 1];
 				strCpy(str, toRead.c_str());
 			}

@@ -1,3 +1,11 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           03.12.2021
+//==============================================
+
 // Final Project 
 // PublicationSelector
 // File PublicationSelector.h
@@ -6,7 +14,7 @@
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-//                    2021-11-27           Initial release
+//                    2021-12-03           Initial release
 /////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -24,7 +32,7 @@ namespace sdds {
          cout.fill(' ');
          cout << (i + 1);
          cout.unsetf(ios::right);
-         cout << "- " << *m_pub[i] << endl; //NOT READS!!!
+         cout << "- " << *m_pub[i] << endl;
       }
    }
    int PublicationSelector::getSelectedLibRef()const{
@@ -69,7 +77,6 @@ namespace sdds {
             ok = true;
             break;
          default:
-             //NOT READS!!!
             cin >> val;
             newline = cin.get();
             if (cin.fail() || newline != '\n') {

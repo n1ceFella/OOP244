@@ -1,14 +1,22 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           27.11.2021
+//==============================================
+
 /* Citation and Sources...
-Final Project Milestone 3
-Module: Streamable
+Final Project Milestone 4
+Module: Publication
 Filename: Publication.cpp
-Version 1.0
+Version 1.1
 Author	Volodymyr Labliuk
-Revision
+Revision read function changed
 -----------------------------------------------------------
 Date      Reason
-2021/11/22  Preliminary release
-2021/11/22  Debugged DMA
+2021/11/27  Preliminary release
+2021/11/27  Debugged DMA
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
@@ -30,7 +38,7 @@ namespace sdds
 		m_membership = 0;
 		m_libRef = -1;
 	}
-	//check if io is part of console stream !!!!!!!!!!!!!!!!!!!!!!!!!! CHANGE TO UTILS
+	//check if io is part of console stream
 	bool Publication::conIO(ios& io)const
 	{
 		return (&io == &cin || &io == &cout);
@@ -41,11 +49,9 @@ namespace sdds
 		if (conIO(os)) {
 			os << "| " << m_shelfID << " | ";
 			os.setf(ios::left);
-			//os.width(SDDS_TITLE_WIDTH);
-			//os.fill('.');
-			//os << m_title;
 			for (unsigned int i = 0; i < strlen(m_title) && i < SDDS_TITLE_WIDTH; i++) {
 				
+				//print dots after last title character
 				if (i == strlen(m_title) - 1) {
 					os.fill('.');
 					os.width(SDDS_TITLE_WIDTH - strlen(m_title) + 1);
@@ -80,9 +86,7 @@ namespace sdds
 		int membership = 0;
 		int libRef = 0;
 		char shelfID[SDDS_SHELF_ID_LEN + 1]{};
-		//char title[SDDS_TITLE_WIDTH + 1]{};
 		char* title{};
-		//char title[256]{};
 		Date date;
 		//read console input
 		if (conIO(is)) {
@@ -92,11 +96,11 @@ namespace sdds
 			if (strlen(shelfID) < 4) {
 				is.setstate(ios::failbit);
 			}
+			//read title dynamically
 			cout << "Title: ";
+			title = dynRead(is); //utils
 
-			title = dynRead(is);
-			//is.getline(title, 256 + 1, '\n');
-
+			//read date
 			cout << "Date: ";
 			is >> date;
 		}
@@ -108,12 +112,12 @@ namespace sdds
 			if (strlen(shelfID) < 4) {
 				is.setstate(ios::failbit);
 			}
-			//is.getline(title, SDDS_TITLE_WIDTH + 1, '	');
-			title = dynRead(is,'\t');
-			//is.getline(title, 256 + 1, '\n');
+			//read title dynamically
+			title = dynRead(is,'\t');//utils
 
 			is >> membership;
 			is.ignore();
+			//read date
 			is >> date;
 		}
 		//check data if valid
@@ -155,13 +159,11 @@ namespace sdds
 		if ((this != &Ro) && Ro) {
 			m_date = Ro.m_date;
 			setRef(Ro.m_libRef);
-			//set(Ro.m_membership);
 			m_membership = Ro.m_membership;
 			strcpy(m_shelfID, Ro.m_shelfID);
 			delete[] m_title;
 			m_title = new char[strlen(Ro.m_title) + 1];
 			strcpy(m_title, Ro.m_title);
-			//delete[] Ro.m_title;
 		}
 		return *this;
 	}

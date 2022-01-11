@@ -3,21 +3,21 @@
 // Student Number: 147302202
 // Email:          vlabliuk@myseneca.ca
 // Section:        NBB
-// Date:           27.11.2021
+// Date:           03.12.2021
 //==============================================
 
 /***********************************************************************
 // OOP244 Utils Module
 // File	Utils.cpp
 // Version 1.2
-// Date	2021.11.27
+// Date	2021.12.03
 // Author Volodymyr Labliuk
 // Description ignore funtion impoved and added supportive functions
 //
 // Revision History
 // -----------------------------------------------------------
 // Name                  Date            Reason
-// Volodymyr Labliuk   2021.11.27     added supportive functions
+// Volodymyr Labliuk   2021.12.03    added supportive functions
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 

@@ -1,5 +1,13 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           27.11.2021
+//==============================================
+
 /* Citation and Sources...
-Final Project Milestone 3
+Final Project Milestone 4
 Module: Streamable
 Filename: Publication.h
 Version 1.0
@@ -22,7 +30,6 @@ that my professor provided to complete my workshops and assignments.
 #include "Streamable.h"
 namespace sdds
 {
-	const int MAX_TITLE_LEN = 255;
 	class Publication : public Streamable
 	{
 	public:

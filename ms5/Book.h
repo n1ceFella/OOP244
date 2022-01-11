@@ -3,11 +3,11 @@
 // Student Number: 147302202
 // Email:          vlabliuk@myseneca.ca
 // Section:        NBB
-// Date:           27.11.2021
+// Date:           03.12.2021
 //==============================================
 
 /* Citation and Sources...
-Final Project Milestone 4
+Final Project Milestone 5
 Module: Book
 Filename: Book.h
 Version 1.0
@@ -15,8 +15,8 @@ Author	Volodymyr Labliuk
 Revision
 -----------------------------------------------------------
 Date      Reason
-2021/11/27  Preliminary release
-2021/11/27  Debugged DMA
+2021/12/03  Preliminary release
+2021/12/03  Debugged DMA
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
@@ -48,7 +48,5 @@ namespace sdds
 		std::istream& read(std::istream& istr);
 		std::ostream& write(std::ostream& ostr)const;
 	};
-	//std::ostream& operator<<(std::ostream& ostr, const Book& Ro);
-	//std::istream& operator>>(std::istream& istr, Book& Ro);
 }
 #endif // !SDDS_BOOK_H

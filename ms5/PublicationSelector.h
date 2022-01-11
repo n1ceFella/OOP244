@@ -1,3 +1,11 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           03.12.2021
+//==============================================
+
 // Final Project 
 // PublicationSelector
 // File PublicationSelector.h

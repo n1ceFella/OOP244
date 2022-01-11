@@ -1,7 +1,15 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           27.11.2021
+//==============================================
+
 /* Citation and Sources...
-Final Project Milestone 1
+Final Project Milestone 4
 Module: Date
-Filename: Date.cpp
+Filename: Date.h
 Version 1.1
 Author	Volodymyr Labliuk
 Revision History added external variables

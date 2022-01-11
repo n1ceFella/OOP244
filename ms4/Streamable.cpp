@@ -1,5 +1,13 @@
+//==============================================
+// Name:           Volodymyr Labliuk
+// Student Number: 147302202
+// Email:          vlabliuk@myseneca.ca
+// Section:        NBB
+// Date:           27.11.2021
+//==============================================
+
 /* Citation and Sources...
-Final Project Milestone 3
+Final Project Milestone 4
 Module: Streamable
 Filename: Streamable.cpp
 Version 1.0

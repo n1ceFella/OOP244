@@ -3,8 +3,24 @@
 // Student Number: 147302202
 // Email:          vlabliuk@myseneca.ca
 // Section:        NBB
-// Date:           23.10.2021
+// Date:           27.11.2021
 //==============================================
+
+/* Citation and Sources...
+Final Project Milestone 4
+Module: Book
+Filename: Book.h
+Version 1.0
+Author	Volodymyr Labliuk
+Revision
+-----------------------------------------------------------
+Date      Reason
+2021/11/27  Preliminary release
+2021/11/27  Debugged DMA
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 #ifndef SDDS_BOOK_H
 #define SDDS_BOOK_H
@@ -28,7 +44,6 @@ namespace sdds
 		operator bool() const;
 		operator char* () const;
 		char type() const;
-		void extractChar(std::istream& istr, char ch) const;
 		void set(int id);
 		std::istream& read(std::istream& istr);
 		std::ostream& write(std::ostream& ostr, bool onScreen = true)const;

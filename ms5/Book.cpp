@@ -3,11 +3,11 @@
 // Student Number: 147302202
 // Email:          vlabliuk@myseneca.ca
 // Section:        NBB
-// Date:           27.11.2021
+// Date:           03.12.2021
 //==============================================
 
 /* Citation and Sources...
-Final Project Milestone 4
+Final Project Milestone 5
 Module: Book
 Filename: Book.cpp
 Version 1.0
@@ -15,8 +15,8 @@ Author	Volodymyr Labliuk
 Revision
 -----------------------------------------------------------
 Date      Reason
-2021/11/27  Preliminary release
-2021/11/27  Debugged DMA
+2021/12/03  Preliminary release
+2021/12/03  Debugged DMA
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
@@ -113,9 +113,7 @@ namespace sdds
         //if file stream
         else {
             istr.ignore();
-            istr.get(authorName, 256 + 1, '\n'); //maybe getline
-            //istr.clear(); //TEMP
-            //istr.ignore(1000, '\n'); // TEMP
+            istr.get(authorName, 256 + 1, '\n');
         }
         if (istr) {
             delete[] m_authorName;
@@ -124,18 +122,4 @@ namespace sdds
         }
         return istr;
     }
-    ////overloaded insertion operator to call function to display data
-    //ostream& operator<<(ostream& ostr, const Book& Ro)
-    //{
-    //    if (Ro) {
-    //        Ro.write(ostr);
-    //    }
-    //    return ostr;
-    //}
-    ////overloaded extraction operator to read data from file
-    //istream& operator>>(istream& istr, Book& book)
-    //{
-    //    book.read(istr);
-    //    return istr; 
-    //}
 }
