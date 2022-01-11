@@ -16,63 +16,49 @@ namespace sdds {
 
     Contact::Contact()
     {
-        setEmpty();
-    }
 
+    }
     Contact::Contact(const char* name, int area, int exCode, int number)
     {
-            set(name, area, exCode, number);
+        set(name, area, exCode, number);
     }
-
+    //return true if not nullptr
     Contact::operator bool() const
     {
         return m_name ? true : false;
     }
-
+    //set to safe empty state
     void Contact::setEmpty()
     {
         m_name = nullptr;
     }
-
+    //DMA for name
     void Contact::allocateAndCopy(const char* name)
     {
         delete[] m_name;
-        m_name = new char[strlen(name + 1)];
+        m_name = new char[strlen(name) + 1];
         strcpy(m_name, name);
     }
-
+    //check phone validity
     bool Contact::validPhone(int areaCode, int exchangeCode, int number) const
     {
         return (
             (areaCode >= 100 && areaCode <= 999) &&
             (exchangeCode >= 100 && exchangeCode <= 999) &&
-            //(isInt(number) && 
             (number >= 0 && number <= 9999)
                 ) ? true : false;
     }
-
-    bool Contact::validName(const char* name) const 
-    {
-        return (name && name[0] != '\n') ? true : false;
-    }
-    bool Contact::isValidContact() const
-    {
-        return (validName(m_name) && validPhone(m_area, m_exchangeCode, m_number));
-    }
+    //remove redundant character
     void Contact::extractChar(std::istream& istr, char ch) const
     {
-
-        char next = istr.peek();
-        if (next == ch) { // checking if the next character in keyboard same as ch
+        if (istr.peek() == ch) { // checking if the next character in keyboard same as ch
             istr.ignore();
-            //cout << "You did not enter a number!";
         }
         else {
-            istr.setstate(ios::failbit);
+            istr.setstate(ios::failbit); //set istr to fail state
         }
-        //cin.ignore(1000, '\n'); // flush the invalid value or everything after the number.
     }
-
+    //print data formatted
     ostream& Contact::printPhoneNumber(ostream& istr) const
     {
         istr << "(" << m_area << ") " << m_exchangeCode << "-";
@@ -80,13 +66,13 @@ namespace sdds {
         istr.fill('0');
         istr.width(4);
         istr << m_number;
+        istr.unsetf(ios::right);
         return istr;
     }
-
+    //setter for object
     void Contact::set(const char* name, int areaCode, int exchangeCode, int number)
     {
-        //if (*this) {
-        if(validName(name) && validPhone(areaCode, exchangeCode, number)){
+        if(name && name[0] != '\n' && validPhone(areaCode, exchangeCode, number)){
             allocateAndCopy(name);
             m_area = areaCode;
             m_exchangeCode = exchangeCode;
@@ -97,49 +83,45 @@ namespace sdds {
             setEmpty();
         }
     }
-
     Contact::~Contact()
     {
         delete[] m_name;
     }
-
+    //copy constrcutor
     Contact::Contact(const Contact& cnt)
     {
-        //if (*this) {
-        if(cnt.isValidContact()){
+        if (cnt) {
             *this = cnt;
         }
     }
-
+    //assigning operator
     Contact& Contact::operator=(const Contact& cnt)
     {
-        if (this != &cnt) {
+        if (this != &cnt) { //if not self copy
             set(cnt.m_name, cnt.m_area, cnt.m_exchangeCode, cnt.m_number);
         }
         return *this;
     }
-
+    //print data formated
     ostream& Contact::print(ostream& ostr, bool toFile) const
     {
-        //if (validName(m_name) && validPhone(m_area, m_exchangeCode, m_number)) {
             if (toFile) {
                 ostr << m_name << ",";
-                printPhoneNumber(ostr);
             }
             else {
-                ostr.unsetf(ios::right);
                 ostr.setf(ios::left);
                 ostr.fill('.');
                 ostr.width(50);
                 ostr << m_name;
-                printPhoneNumber(ostr);
+                ostr.unsetf(ios::left);
             }
-        //}
+        printPhoneNumber(ostr);
         return ostr;
     }
+    //read formatted data
     istream& Contact::read(istream& istr)
     {
-        char name[MaxNameLength];
+        char name[MaxNameLength]{};
         int areaCode;
         int exCode;
         int number;
@@ -160,9 +142,7 @@ namespace sdds {
     }
     ostream& operator<<(ostream& ostr, const Contact& cnt)
     {
-        //if (cnt.validName(m_name) && cnt.validPhone(m_area, m_exchangeCode, m_number)) {
-        //if (cnt) {
-        if(cnt.isValidContact()){
+        if (cnt) {
             cnt.print(ostr, false);
         }
         else ostr << "Invalid Phone Record";

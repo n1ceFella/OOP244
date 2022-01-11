@@ -21,7 +21,6 @@ namespace sdds {
 		void allocateAndCopy(const char* name);
 		void extractChar(std::istream& istr, char ch)const;
 		bool validPhone(int areaCode, int exchangeCode, int number)const;
-		bool validName(const char* name) const;
 		void setEmpty();
 		void set(const char* name, int areaCode, int exchangeCode, int number);
 	public:
@@ -29,7 +28,6 @@ namespace sdds {
 		Contact();
 		Contact(const Contact& cnt);
 		~Contact();
-		bool isValidContact() const;
 		Contact& operator=(const Contact& cnt);
 		std::ostream& printPhoneNumber(std::ostream& istr)const;
 		std::ostream& print(std::ostream& ostr, bool toFile = true) const;
